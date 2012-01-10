@@ -5,10 +5,10 @@
     }
     
     $.twitter_lookup = (function(){
-        var twitter_lookup;
+        var twitter_lookup = {};
         
-        twitter_lookup.findFollowersForTwitterHandle = function(twitterHandle){
-            
+        twitter_lookup.getTwitterFollowersPromise = function(twitterHandle){
+             return new $.Deferred;
         }
             
         return twitter_lookup;
