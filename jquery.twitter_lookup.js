@@ -8,7 +8,24 @@
         var twitter_lookup = {};
         
         twitter_lookup.getTwitterFollowersPromise = function(twitterHandle){
-             return new $.Deferred;
+             var userRequest = $.ajax({
+                url:API_URLS.FOLLOWERS_IDS+twitterHandle,
+                dataType:"jsonp"
+             });
+
+             userRequest = userRequest.pipe(function(data){
+                     data.ids.length = 100;
+                     return $.ajax({
+                        url:API_URLS.USERS_LOOKUPS+data.ids.join(","),
+                        dataType:"jsonp"
+                     });
+             });
+
+             userRequest.then(function(){
+                console.log(arguments);
+             });
+
+             return userRequest;
         }
             
         return twitter_lookup;
