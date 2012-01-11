@@ -1,21 +1,25 @@
-$(document).ready(function(){
-        module("Twitter Lookup tests");
+module("Twitter Lookup tests");
 
-        test("follower lookup returns promise", function(){
-                var promise = $.twitter_lookup.getTwitterFollowersPromise("johnkpaul");
-                expect(1);
-                ok(isAjQueryPromise(promise));
-                
-        });
-
-
-        function isAjQueryPromise(promise){
-                return typeof(promise.then) == "function"
-        }
+test("follower lookup returns promise", function(){
+        var promise = $.twitter_lookup.getTwitterFollowersPromise("johnkpaul");
+        expect(1);
+        ok(isAjQueryPromise(promise));
 });
 
+test("follower lookup returns promise", function(){
+        var promise = $.twitter_lookup.getTwitterFollowersPromise("johnkpaul");
+        expect(1);
+        ok(isAjQueryPromise(promise));
+        
+});
+
+
+function isAjQueryPromise(promise){
+        return typeof(promise.then) == "function"
+}
+
 module("utility functions");
-test("splitBy splits even array", function(){
+test("splitBy splits even array by even number", function(){
        var testArray = [1,2,3,4,5,6,7,8,9,10]; 
        var split = $.twitter_lookup.utils.splitBy(testArray,2);
        expect(5);
@@ -26,7 +30,7 @@ test("splitBy splits even array", function(){
        deepEqual(split[4],[9,10]);
 });
 
-test("splitBy splits odd array", function(){
+test("splitBy splits odd array by even number", function(){
        var testArray = [1,2,3,4,5,6,7,8,9]; 
        var split = $.twitter_lookup.utils.splitBy(testArray,2);
        expect(5);
