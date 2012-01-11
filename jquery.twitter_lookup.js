@@ -28,6 +28,16 @@
              return userRequest;
         }
             
+        twitter_lookup.utils = {};
+        twitter_lookup.utils.splitBy = function(arr, count){
+               var splitBy = [];
+               for(var i = 0, times = arr.length/count;i<times;i++){
+                splitBy[i] = arr.slice(i*count, (i*count)+count);
+               }
+               return splitBy;
+        }
+
         return twitter_lookup;
     })();
 })(this, this.jQuery)
+
