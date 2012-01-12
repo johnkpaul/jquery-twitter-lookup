@@ -6,14 +6,6 @@ test("follower lookup returns promise", function(){
         ok(isAjQueryPromise(promise));
 });
 
-test("follower lookup returns promise", function(){
-        var promise = $.twitter_lookup.getTwitterFollowersPromise("johnkpaul");
-        expect(1);
-        ok(isAjQueryPromise(promise));
-        
-});
-
-
 function isAjQueryPromise(promise){
         return typeof(promise.then) == "function"
 }
