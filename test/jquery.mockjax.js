@@ -358,7 +358,8 @@
 			});
 			// We don't have a mock request, trigger a normal request
 			if ( !mock ) {
-				return _ajax.apply($, arguments);
+				return _ajax.apply($, [origSettings]);
+				//return _ajax.apply($, arguments);
 			} else {
 				return mock;
 			}
