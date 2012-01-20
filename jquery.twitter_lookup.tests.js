@@ -1,7 +1,7 @@
 module("Twitter Lookup tests");
 
 test("follower lookup returns promise", function(){
-        var promise = $.twitter_lookup.getTwitterFollowersPromise("johnkpaul");
+        var promise = $.twitter_lookup.getTwitterFollowersByHandle("johnkpaul");
         expect(1);
         ok(isAjQueryPromise(promise));
 });

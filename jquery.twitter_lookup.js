@@ -7,7 +7,7 @@
     $.twitter_lookup = (function(){
         var twitter_lookup = {};
         
-        twitter_lookup.getTwitterFollowersPromise = function(twitterHandle){
+        twitter_lookup.getTwitterFollowersByHandle = function(twitterHandle, /*opt*/ callback){
              var followersRequest = $.ajax({
                 url:API_URLS.FOLLOWERS_IDS+twitterHandle,
                 dataType:"jsonp"
@@ -27,7 +27,7 @@
                      return $.when.apply(null, deferreds);
              });
 
-             userRequest = userRequest.pipe(function(){
+             var finalRequest = userRequest.pipe(function(){
                 var followers = Array.prototype.map.call(arguments,function(val){
                     return val[0]
                 });
@@ -35,8 +35,10 @@
                 var flattened = Array.prototype.concat.apply([], followers);
                 return flattened;
              });
+            
+            finalRequest.then(callback);
 
-             return userRequest;
+            return finalRequest;
         }
             
         twitter_lookup.utils = {};
