@@ -8,21 +8,32 @@
         var twitter_lookup = {};
         
         twitter_lookup.getTwitterFollowersPromise = function(twitterHandle){
-             var userRequest = $.ajax({
+             var followersRequest = $.ajax({
                 url:API_URLS.FOLLOWERS_IDS+twitterHandle,
                 dataType:"jsonp"
              });
 
-             userRequest = userRequest.pipe(function(data){
-                     data.ids.length = 100;
-                     return $.ajax({
-                        url:API_URLS.USERS_LOOKUPS+data.ids.join(","),
-                        dataType:"jsonp"
-                     });
+             userRequest = followersRequest.pipe(function(data){
+                     var ids = twitter_lookup.utils.splitBy(data.ids,100);
+                     var deferreds = [];
+                     for(var i=0,len=ids.length;i<len;i++){
+                         var innerIds = ids[i];
+                         var deferred = $.ajax({
+                            url:API_URLS.USERS_LOOKUPS+innerIds.join(","),
+                            dataType:"jsonp"
+                         });
+                        deferreds.push(deferred);
+                     }
+                     return $.when.apply(null, deferreds);
              });
 
-             userRequest.then(function(){
-                console.log(arguments);
+             userRequest = userRequest.pipe(function(){
+                var followers = Array.prototype.map.call(arguments,function(val){
+                    return val[0]
+                });
+
+                var flattened = Array.prototype.concat.apply([], followers);
+                return flattened;
              });
 
              return userRequest;
