@@ -18,6 +18,18 @@ asyncTest("follower lookup", function(){
         });
 });
 
+asyncTest("follower lookup executes callback as parameter", function(){
+        setupMocksForFollowerLookup();
+        expect(1);
+        var callback = function(followers){
+                var expected = [{"screen_name":"logtailer"},{"screen_name":"test_screename"}];
+                deepEqual(followers,expected, "followers are expected"); 
+                $.mockjaxClear();
+                start();
+        }
+        $.twitter_lookup.getTwitterFollowersByHandle("johnkpaul",callback);
+});
+
 module("utility functions");
 test("splitBy splits even array by even number", function(){
        var testArray = [1,2,3,4,5,6,7,8,9,10]; 
