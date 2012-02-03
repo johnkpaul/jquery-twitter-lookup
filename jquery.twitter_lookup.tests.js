@@ -6,9 +6,17 @@ test("follower lookup returns promise", function(){
         ok(isAjQueryPromise(promise));
 });
 
-function isAjQueryPromise(promise){
-        return typeof(promise.then) == "function"
-}
+asyncTest("follower lookup", function(){
+        setupMocksForFollowerLookup();
+        var promise = $.twitter_lookup.getTwitterFollowersByHandle("johnkpaul");
+        expect(1);
+        promise.then(function(followers){
+                var expected = [{"screen_name":"logtailer"},{"screen_name":"test_screename"}];
+                deepEqual(followers,expected, "followers are expected"); 
+                $.mockjaxClear();
+                start();
+        });
+});
 
 module("utility functions");
 test("splitBy splits even array by even number", function(){
@@ -51,3 +59,22 @@ test("splitBy splits even array by odd number", function(){
        deepEqual(split[2],[7,8,9]);
        deepEqual(split[3],[10]);
 });
+
+function isAjQueryPromise(promise){
+        return typeof(promise.then) == "function"
+}
+
+function setupMocksForFollowerLookup(){
+        $.mockjax({
+                url:"http://api.twitter.com/1/followers/ids.json?screen_name=johnkpaul",
+                contentType: 'text/json',
+                responseText:{
+                        success:true,
+                        ids:[1,2]
+                }
+        });
+        $.mockjax({
+                url:"http://api.twitter.com/1/users/lookup.json?user_id=1,2",
+                responseText:[[{"screen_name":"logtailer"},{"screen_name":"test_screename"}]]
+        });
+}

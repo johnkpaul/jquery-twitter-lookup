@@ -142,7 +142,7 @@
 					if ( s.dataType === "jsonp" ) {
 						if ( s.type.toUpperCase() === "GET" ) {
 							if ( !jsre.test( s.url ) ) {
-								s.url += (rquery.test( s.url ) ? "&" : "?") + (s.jsonp || "callback") + "=?";
+								s.url += (/\?/.test( s.url ) ? "&" : "?") + (s.jsonp || "callback") + "=?";
 							}
 						} else if ( !s.data || !jsre.test(s.data) ) {
 							s.data = (s.data ? s.data + "&" : "") + (s.jsonp || "callback") + "=?";
@@ -232,6 +232,15 @@
 						}
 						success();
 						complete();
+						if(jQuery.Deferred){
+							mock = new jQuery.Deferred();
+							if(typeof m.responseText == "object"){
+								mock.resolve(m.responseText);
+							}
+							else{
+								mock.resolve(jQuery.parseJSON(m.responseText));
+							}
+						}
 						return false;
 					}
 
