@@ -1,24 +1,23 @@
 /*global module:false*/
+
 module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    lint: {
-      files: ['grunt.js', 'lib/**/*.js', 'test/**/*.js']
-    },
     qunit: {
       files: ['index.html']
     },
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'lint qunit'
+      files: '<config:jshint.files>',
+      tasks: 'jshint qunit'
     },
     jshint: {
+      files: ['Gruntfile.js', 'jquery.twitter_lookup*.js'],
       options: {
         curly: true,
         eqeqeq: true,
         immed: true,
-        latedef: true,
+        latedef: false,
         newcap: true,
         noarg: true,
         sub: true,
@@ -26,14 +25,13 @@ module.exports = function(grunt) {
         boss: true,
         eqnull: true,
         browser: true
-      },
-      globals: {
-        jQuery: true
       }
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
   // Default task.
-  grunt.registerTask('default', 'lint qunit');
+  grunt.registerTask('default', ['jshint', 'qunit']);
 
 };

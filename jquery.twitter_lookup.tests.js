@@ -1,3 +1,4 @@
+/*global module:false, test: false, $:false, expect: false, deepEqual: false, start: false, asyncTest: false, ok: false*/
 module("Twitter Lookup tests");
 
 test("follower lookup returns promise", function(){
@@ -26,7 +27,7 @@ asyncTest("follower lookup executes callback as parameter", function(){
                 deepEqual(followers,expected, "followers are expected"); 
                 $.mockjaxClear();
                 start();
-        }
+        };
         $.twitter_lookup.getTwitterFollowersByHandle("johnkpaul",callback);
 });
 
@@ -73,7 +74,7 @@ test("splitBy splits even array by odd number", function(){
 });
 
 function isAjQueryPromise(promise){
-        return typeof(promise.then) == "function"
+        return typeof(promise.then) === "function";
 }
 
 function setupMocksForFollowerLookup(){

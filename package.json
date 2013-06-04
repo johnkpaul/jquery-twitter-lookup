@@ -1,0 +1,28 @@
+{
+  "name": "jquery-twitter-lookup",
+  "version": "0.0.1",
+  "description": "jQuery twitter lookup example",
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-qunit": "~0.2.1",
+    "grunt-contrib-jshint": "~0.6.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-qunit": "~0.2.1",
+    "grunt-contrib-jshint": "~0.6.0"
+  },
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/johnkpaul/jquery-twitter-lookup.git"
+  },
+  "author": "John K. Paul",
+  "license": "BSD"
+}
